@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "arm_nnfunctions.h": "c",
+        "params_reader.h": "c",
+        "minst_image.h": "c",
+        "*.tcc": "c",
+        "main.h": "c"
+    }
+}
