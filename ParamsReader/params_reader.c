@@ -124,7 +124,8 @@ float **allocate_2d_array(int rows, int cols)
 }
 
 // 
-void free_2d_array(float **array, int rows) {
+void free_2d_array(float **array, int rows) 
+{
     for (int i = 0; i < rows; i++) {
         free(array[i]); // 
     }

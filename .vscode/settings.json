@@ -6,6 +6,8 @@
         "minst_image.h": "c",
         "*.tcc": "c",
         "main.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "string.h": "c",
+        "nninference.h": "c"
     }
 }

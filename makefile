@@ -11,6 +11,7 @@ CFLAGS = -std=c99 -Wall -g
 INCLUDES = 	-I./CMSIS-NN/Include \
 			-I./CMSIS-NN/Include/Internal \
 			-I./ParamsReader \
+			-I./NNInference \
 			-I.
 
 # Static Library
@@ -19,8 +20,9 @@ LIBRARY = ./libcmsis-nn.a \
 
 # Source files
 
-SRCS = test.c \
-       ./ParamsReader/params_reader.c
+SRCS = main.c \
+       ./ParamsReader/params_reader.c \
+	   ./NNInference/NNInference.c
 
 # Object files
 
@@ -28,7 +30,7 @@ OBJS = $(SRCS:.c=.o)
 
 # Output executable
 
-TARGET = test.exe
+TARGET = main.exe
 
 # ------------------------ #
 
