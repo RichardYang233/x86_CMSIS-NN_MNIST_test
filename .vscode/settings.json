@@ -5,6 +5,7 @@
         "params_reader.h": "c",
         "minst_image.h": "c",
         "*.tcc": "c",
-        "main.h": "c"
+        "main.h": "c",
+        "stdint.h": "c"
     }
 }
