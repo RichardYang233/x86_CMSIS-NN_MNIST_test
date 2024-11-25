@@ -55,7 +55,7 @@ int parse_dim(const char *line, Dim_TypeDef *Dim)
 }
 
 //
-void get_params(FILE *file, char *line, int sizeofline, float array[], Dim_TypeDef Dim)
+void get_bias_params(FILE *file, char *line, int sizeofline, int32_t array[], Dim_TypeDef Dim)
 {
     // printf("%d, %d\n", Dim.rows, Dim.cols); // test
     for (int i = 0; i < Dim.rows; i++)

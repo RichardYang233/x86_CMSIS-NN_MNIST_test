@@ -1,12 +1,12 @@
 #ifndef __PARAMSREADER_H
 #define __PARAMSREADER_H
 
+#include <stdint.h>
 
 #define MAX_LINE_SIZE 100000
 
 
-typedef struct 
-{
+typedef struct {
     int rows;
     int cols;
 } Dim_TypeDef;
@@ -15,7 +15,7 @@ typedef struct
 FILE *open_csv(const char *paramsFileName);
 int parse_dim(const char *line, Dim_TypeDef *Dim);
 bool is_lable(const char *line, char *lable);
-void get_params(FILE *file, char *line, int sizeOfline, float array[], Dim_TypeDef Dim);
+void get_bias_params(FILE *file, char *line, int sizeOfline, int32_t array[], Dim_TypeDef Dim);
 
 
 // void serch_lable_and_read_params(FILE *file, char *line, int sizeofline);

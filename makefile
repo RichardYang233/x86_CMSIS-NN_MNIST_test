@@ -20,7 +20,7 @@ LIBRARY = ./libcmsis-nn.a \
 
 # Source files
 
-SRCS = test.c \
+SRCS = main.c \
        ./ParamsReader/params_reader.c \
 	   ./NNInference/NNInference.c
 
@@ -30,7 +30,7 @@ OBJS = $(SRCS:.c=.o)
 
 # Output executable
 
-TARGET = test.exe
+TARGET = main.exe
 
 # ------------------------ #
 

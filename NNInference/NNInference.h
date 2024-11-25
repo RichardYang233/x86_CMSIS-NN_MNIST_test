@@ -4,6 +4,13 @@
 #include "arm_nnfunctions.h"
 #include "main.h"
 
+
+// 全连接网络参数
+#define INPUT_SIZE 784  // 输入尺寸（28x28 图像展平）
+#define HIDDEN_SIZE 512 // 隐藏层节点数
+#define OUTPUT_SIZE 10  // 输出类别数
+
+
 // CMSIS-NN 参数结构体
 cmsis_nn_context ctx;
 cmsis_nn_fc_params fc_params;
