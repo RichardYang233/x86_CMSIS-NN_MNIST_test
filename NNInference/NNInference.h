@@ -15,7 +15,7 @@ extern int8_t input[INPUT_SIZE];
 
 // 隐藏层 
 int8_t hidden_weights[HIDDEN_SIZE][INPUT_SIZE]; // 权重
-float hidden_bias[HIDDEN_SIZE];               // 偏置
+int32_t hidden_bias[HIDDEN_SIZE];               // 偏置
 int8_t hidden_output[HIDDEN_SIZE];              // 输出
 
 // 输出层

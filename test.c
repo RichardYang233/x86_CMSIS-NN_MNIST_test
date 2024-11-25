@@ -4,46 +4,39 @@
 #include <stdbool.h>
 
 #include "params_reader.h"
-#include "main.h"
+
+
+// 全连接网络参数
+#define INPUT_SIZE 784  // 输入尺寸（28x28 图像展平）
+#define HIDDEN_SIZE 512 // 隐藏层节点数
+#define OUTPUT_SIZE 10  // 输出类别数
+
+// 模型参数读取相关
+#define MAX_LINE_SIZE 100000
+#define CSV_FILE_NAME "./FCNNModelCreater/params.csv"
+#define LABEL "fc2.weight"
+
+
+float drt_array[OUTPUT_SIZE];
 
 
 int main()
 {
+    // 变量
+    Dim_TypeDef Dim;
+    char *label = LABEL;
     char line[MAX_LINE_SIZE];
+    
+    //
     FILE *file = open_csv(CSV_FILE_NAME);
 
+    serch_lable_line(file, line, sizeof(line), label);
+    parse_dim(line, &Dim);
+    get_params(file, line, sizeof(line), drt_array, Dim);
 
-    // serch_lable_and_read_params(file, line, sizeof(line));
-    int rows = 0;
-    int cols = 0;
-
-    serch_lable_line(file, line, sizeof(line));
-    parse_dim(line, &rows, &cols);
-
-    float drt_array[rows][cols];
-
-    float **params_array = allocate_2d_array(rows, cols); // 动态分配二维数组
-    read_params(file, line, sizeof(line), params_array, rows, cols);
-
-    for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < cols; j++)
-        {
-            drt_array[i][j] = params_array[i][j];
-        }
-    }
-
-    free_2d_array(params_array, rows);
-
-    for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < cols; j++)
-        {
-            printf("%d: %f \n", j+1, drt_array[i][j]); 
-        }
-    }
-
+    // 
     printf("Run successfully !!!\n\n");
+
     fclose(file);
     return 0;
 }

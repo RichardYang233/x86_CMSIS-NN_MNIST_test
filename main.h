@@ -9,6 +9,7 @@
 // 模型参数读取相关
 #define MAX_LINE_SIZE 100000
 #define CSV_FILE_NAME "./FCNNModelCreater/params.csv"
-#define LABLE "fc1.bias"
+#define LABEL "fc1.bias"
+
 
 #endif
