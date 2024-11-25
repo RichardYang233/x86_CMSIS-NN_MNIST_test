@@ -70,7 +70,7 @@ void read_params(FILE *file, char *line, int sizeofline, float **array, int rows
         for (int j = 0; j < cols && token != NULL; j++)
         {
             array[i][j] = strtof(token, NULL); // 
-            // printf("%d: %f\n", (i + 1) * (j + 1), array[i][j]);
+            //printf("%d: %f\n", (i + 1) * (j + 1), array[i][j]); // test
             token = strtok(NULL, ",");
         }
     }
@@ -132,35 +132,31 @@ void free_2d_array(float **array, int rows) {
 }
 
 // 
-char *serch_lable_line(FILE* file, char *line, int sizeofline)
+void serch_lable_line(FILE* file, char *line, int sizeofline)
 {
     while (fgets(line, sizeofline, file))
     {
         line[strcspn(line, "\n")] = 0; // 移除换行符
         if (is_lable(line, LABLE) == true)
         {
-            return line;
+            break;
         }
     }
-    return NULL;
 }
 
-// 
+// 暂时不用，作为流程说明
 void serch_lable_and_read_params(FILE *file, char *line, int sizeofline)
 {
     int rows = 0;
     int cols = 0;
     // int current_line = 0;
 
-    line = serch_lable_line(file, line, sizeofline);
-
+    serch_lable_line(file, line, sizeofline);
     parse_dim(line, &rows, &cols);
+
     // float params_array[rows][cols];
     float **params_array = allocate_2d_array(rows, cols); // 动态分配二维数组
-    
-    // 读出数据
     read_params(file, line, sizeofline, params_array, rows, cols);
-
     free_2d_array(params_array, rows);
     
 }
