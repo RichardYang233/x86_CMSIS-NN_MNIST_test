@@ -14,6 +14,21 @@ FILE *open_csv(const char *paramsFileName)
     return file;
 }
 
+//
+bool is_lable(const char *line, char *lable)
+{
+    const char *lable_start = strstr(line, lable);
+    if (lable_start == NULL)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+// 
 int parse_dim(const char *line, int *rows, int *cols)
 {
     //  "torch.Size("
@@ -38,25 +53,13 @@ int parse_dim(const char *line, int *rows, int *cols)
     }
 }
 
-// 
-bool is_lable(const char *line, char *lable)
+//
+void read_params(FILE *file, char *line, int sizeofline, float **array, int rows, int cols)
 {
-    const char *lable_start = strstr(line, lable);
-    if (lable_start == NULL)
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }
-}
-
-void read_params(FILE *file, char *line, int sizeOfline,float **array, int rows, int cols)
-{
+    
     for (int i = 0; i < rows; i++)
     {
-        if (fgets(line, sizeOfline, file) == NULL)
+        if (fgets(line, sizeofline, file) == NULL)
         {
             printf("Failed to read data for row %d.\n", i);
             break;
@@ -67,16 +70,14 @@ void read_params(FILE *file, char *line, int sizeOfline,float **array, int rows,
         for (int j = 0; j < cols && token != NULL; j++)
         {
             array[i][j] = strtof(token, NULL); // 
-            //printf("%d: %f\n", (i + 1) * (j + 1), array[i][j]);
+            // printf("%d: %f\n", (i + 1) * (j + 1), array[i][j]);
             token = strtok(NULL, ",");
         }
     }
     return;
 }
 
-
-
-
+//
 void copy(float **array, int8_t hidden_weights[HIDDEN_SIZE][INPUT_SIZE])
 {
     float scale = 127.0f;
@@ -92,8 +93,6 @@ void copy(float **array, int8_t hidden_weights[HIDDEN_SIZE][INPUT_SIZE])
         }
     }
 }
-
-
 
 // 
 float **allocate_2d_array(int rows, int cols) 
@@ -124,6 +123,7 @@ float **allocate_2d_array(int rows, int cols)
     return array;
 }
 
+// 
 void free_2d_array(float **array, int rows) {
     for (int i = 0; i < rows; i++) {
         free(array[i]); // 
@@ -131,33 +131,36 @@ void free_2d_array(float **array, int rows) {
     free(array); // 
 }
 
+// 
+char *serch_lable_line(FILE* file, char *line, int sizeofline)
+{
+    while (fgets(line, sizeofline, file))
+    {
+        line[strcspn(line, "\n")] = 0; // 移除换行符
+        if (is_lable(line, LABLE) == true)
+        {
+            return line;
+        }
+    }
+    return NULL;
+}
 
-void serch_lable_and_read_params(FILE *file, char *line)
+// 
+void serch_lable_and_read_params(FILE *file, char *line, int sizeofline)
 {
     int rows = 0;
     int cols = 0;
-    int current_line = 0;
+    // int current_line = 0;
 
-    while (fgets(line, sizeof(line), file))
-    {
-        current_line++;
-        line[strcspn(line, "\n")] = 0; // 移除换行符
+    line = serch_lable_line(file, line, sizeofline);
 
-        if (is_lable(line, LABLE) == false)
-        {
-            continue;
-        }
+    parse_dim(line, &rows, &cols);
+    // float params_array[rows][cols];
+    float **params_array = allocate_2d_array(rows, cols); // 动态分配二维数组
+    
+    // 读出数据
+    read_params(file, line, sizeofline, params_array, rows, cols);
 
-        parse_dim(line, &rows, &cols);
-        // float params_array[rows][cols];
-        float **params_array = allocate_2d_array(rows, cols); // 动态分配二维数组
-        
-        // 读出数据
-        read_params(file, line, sizeof(line), params_array, rows, cols);
-
-        free_2d_array(params_array, rows);
-        break;
-        
-    }
-
+    free_2d_array(params_array, rows);
+    
 }
