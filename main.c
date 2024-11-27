@@ -20,14 +20,29 @@ int main(void)
     Dim_TypeDef Dim;
     char line[MAX_LINE_SIZE];
 
-    //
+    // нд╪Ч
     FILE *file = open_csv(CSV_FILE_NAME);
 
-    serch_lable_line(file, line, sizeof(line), "fc1.bias");
+    // hidden_bias[]
+    float array[HIDDEN_SIZE];
+    char *label = "fc1.bias";
+    serch_lable_line(file, line, sizeof(line), label);
     parse_dim(line, &Dim);
-    get_bias_params(file, line, sizeof(line), hidden_bias, Dim);
+    get_bias_params(file, line, sizeof(line), array, Dim);
 
-    printf("%d", hidden_bias[0]);
+    // ур scale
+    float temp = 0;
+    float drt = 0;
+    for (int i = 0; i < INPUT_SIZE; i++)
+    {
+        // temp = array[i];
+        // if (temp < drt)
+        // {
+        //     drt = temp;
+        // }
+        printf("%d ", image[i]);
+    }
+   
 
 
 

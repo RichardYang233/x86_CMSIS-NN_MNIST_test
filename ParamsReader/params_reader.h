@@ -15,7 +15,7 @@ typedef struct {
 FILE *open_csv(const char *paramsFileName);
 int parse_dim(const char *line, Dim_TypeDef *Dim);
 bool is_lable(const char *line, char *lable);
-void get_bias_params(FILE *file, char *line, int sizeOfline, int32_t array[], Dim_TypeDef Dim);
+void get_bias_params(FILE *file, char *line, int sizeOfline, float array[], Dim_TypeDef Dim);
 
 
 // void serch_lable_and_read_params(FILE *file, char *line, int sizeofline);

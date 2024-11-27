@@ -18,7 +18,8 @@ cmsis_nn_per_tensor_quant_params quant_params;
 cmsis_nn_dims input_dims, filter_dims, bias_dims, output_dims;
 
 // 输入层 (图像) (不符合输入变量类型，暂用)
-extern int8_t input[INPUT_SIZE];
+extern uint8_t image[INPUT_SIZE];
+int8_t input[INPUT_SIZE];
 
 // 隐藏层 
 int8_t hidden_weights[HIDDEN_SIZE][INPUT_SIZE]; // 权重

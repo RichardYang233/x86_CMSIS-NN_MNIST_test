@@ -55,7 +55,7 @@ int parse_dim(const char *line, Dim_TypeDef *Dim)
 }
 
 //
-void get_bias_params(FILE *file, char *line, int sizeofline, int32_t array[], Dim_TypeDef Dim)
+void get_bias_params(FILE *file, char *line, int sizeofline, float array[], Dim_TypeDef Dim)
 {
     // printf("%d, %d\n", Dim.rows, Dim.cols); // test
     for (int i = 0; i < Dim.rows; i++)
@@ -138,7 +138,7 @@ void serch_lable_line(FILE* file, char *line, int sizeofline, char *label)
     rewind(file);
     while (fgets(line, sizeofline, file))
     {
-        line[strcspn(line, "\n")] = 0; // 移除换行符
+        line[strcspn(line, "\n")] = 0; // 移除换行�?
         if (is_lable(line, label) == true)
         {
             break;
@@ -158,7 +158,7 @@ void serch_lable_line(FILE* file, char *line, int sizeofline, char *label)
 //     parse_dim(line, &rows, &cols);
 
 //     // float params_array[rows][cols];
-//     float **params_array = allocate_2d_array(rows, cols); // 动态分配二维数组
+//     float **params_array = allocate_2d_array(rows, cols); // 动态分配二维数�?
 //     read_params(file, line, sizeofline, params_array, rows, cols);
 //     free_2d_array(params_array, rows);
     
