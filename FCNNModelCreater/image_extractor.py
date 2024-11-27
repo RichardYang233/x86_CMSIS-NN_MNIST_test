@@ -4,7 +4,7 @@ from torchvision.datasets import MNIST
 from torch.utils.data import DataLoader
 from PIL import Image
 
-transform = transforms.ToTensor()
+
 mnist_dataset = MNIST(root='./FCNNModelCreater/MNIST/data', train=True, download=False, transform=transforms.ToTensor())
 
 # 提取第一个样本 (5)

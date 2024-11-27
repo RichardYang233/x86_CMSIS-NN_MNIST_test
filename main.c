@@ -9,7 +9,7 @@
 
 // 模型参数读取相关
 #define MAX_LINE_SIZE 100000
-#define CSV_FILE_NAME "./FCNNModelCreater/params.csv"
+#define CSV_FILE_PATH "./FCNNModelCreater/params.csv"
 #define LABEL "fc1.bias"
 
 
@@ -21,7 +21,7 @@ int main(void)
     char line[MAX_LINE_SIZE];
 
     // 文件
-    FILE *file = open_csv(CSV_FILE_NAME);
+    FILE *file = open_csv(CSV_FILE_PATH);
 
     // hidden_bias[]
     float array[HIDDEN_SIZE];
@@ -42,9 +42,6 @@ int main(void)
         // }
         printf("%d ", image[i]);
     }
-   
-
-
 
 
 

@@ -8,18 +8,17 @@
 #include "params_reader.h"
 
 
-
-FILE *open_csv(const char *paramsFileName)
+FILE *open_csv(const char *fliePath)
 {
-    FILE *file = fopen(paramsFileName, "r");
+    FILE *file = fopen(fliePath, "r");
     return file;
 }
 
 //
-bool is_lable(const char *line, char *lable)
+bool is_label(const char *line, char *label)
 {
-    const char *lable_start = strstr(line, lable);
-    if (lable_start == NULL)
+    const char *label_start = strstr(line, label);
+    if (label_start == NULL)
     {
         return false;
     }
@@ -133,13 +132,13 @@ void free_2d_array(float **array, int rows)
 }
 
 // 
-void serch_lable_line(FILE* file, char *line, int sizeofline, char *label)
+void serch_label_line(FILE* file, char *line, int sizeofline, char *label)
 {
     rewind(file);
     while (fgets(line, sizeofline, file))
     {
         line[strcspn(line, "\n")] = 0; // 移除换行�?
-        if (is_lable(line, label) == true)
+        if (is_label(line, label) == true)
         {
             break;
         }
@@ -148,13 +147,13 @@ void serch_lable_line(FILE* file, char *line, int sizeofline, char *label)
 
 
 
-// void serch_lable_and_read_params(FILE *file, char *line, int sizeofline)
+// void serch_label_and_read_params(FILE *file, char *line, int sizeofline)
 // {
 //     int rows = 0;
 //     int cols = 0;
 //     // int current_line = 0;
 
-//     serch_lable_line(file, line, sizeofline);
+//     serch_label_line(file, line, sizeofline);
 //     parse_dim(line, &rows, &cols);
 
 //     // float params_array[rows][cols];
