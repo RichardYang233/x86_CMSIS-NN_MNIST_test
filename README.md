@@ -1,60 +1,9 @@
 # README
 
-现在重点依然放在params_reader的函数封装上
+### 文件构成
 
-目前是量化：
+**FCNNModelCreater**：模型生成；参数、图像数据提取
 
-1. pytorch 似乎可以直接量化模型
+**NNInferece**：模型推算；量化
 
-1. 确定量化需求
-MNIST图像：输入图像需要从浮点型（通常是 float32）转换为 int8，同时需要定义一个零点和比例因子进行量化。
-权重和偏置：权重需要量化为 int8，偏置需要量化为 int32。
-输出：神经网络的输出需要量化为 int8。
-2. 量化过程
-可以使用 PyTorch 的量化工具或手动实现量化。
-
-a) MNIST图像量化
-假设输入图像范围为 [0, 1]，你可以定义零点和缩放因子进行量化：
-
-python
-复制代码
-import numpy as np
-
-# 假设量化范围
-input_scale = 1.0 / 128  # 缩放因子
-input_zero_point = -128  # 零点
-
-# 浮点图像
-float_image = np.random.rand(28, 28).astype(np.float32)  # 假设是 [0, 1] 的 MNIST 图像
-
-# 量化到 int8
-quantized_image = np.clip((float_image / input_scale + input_zero_point).round(), -128, 127).astype(np.int8)
-b) 权重量化
-权重的量化也类似，需要缩放因子和零点。权重通常对称量化（零点为0）：
-
-python
-复制代码
-# 假设训练好的浮点权重
-float_weights = np.random.randn(128, 784).astype(np.float32)
-
-# 假设量化范围
-weight_scale = np.max(np.abs(float_weights)) / 127  # 对称量化
-weight_zero_point = 0
-
-# 量化到 int8
-quantized_weights = np.clip((float_weights / weight_scale).round(), -128, 127).astype(np.int8)
-c) 偏置量化
-偏置的量化需要考虑输入和权重的缩放因子：
-
-python
-复制代码
-# 浮点偏置
-float_bias = np.random.randn(128).astype(np.float32)
-
-# 计算偏置量化的缩放因子
-bias_scale = input_scale * weight_scale
-
-# 量化到 int32
-quantized_bias = np.round(float_bias / bias_scale).astype(np.int32)
-d) 输出量化
-输出的量化需要根据模型的输出范围定义缩放因子和零点。训练时可以通过模拟量化来确定。
+**ParamsReader**：读取模型参数

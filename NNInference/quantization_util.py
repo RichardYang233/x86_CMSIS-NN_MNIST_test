@@ -5,33 +5,33 @@ class NNLayer(object):
     def __init__(self, input=None, weight=None, bias=None):
         self.input = input
         self.weight = weight
-        self.bias = bias
+        self.bias = bias  
 
     def get_scale(self, dataArray, drtDataType: str) -> float:
-        max_val = max(dataArray) 
-        min_val = min(dataArray)
+        max_val = np.amax(dataArray) 
+        min_val = np.amin(dataArray)
         if (drtDataType == 'int8'):
             return max(abs(max_val), abs(min_val)) / (2**7 - 1)
         elif(drtDataType == 'int32'):
-            return max(abs(max_val), abs(min_val)) / (2**31 - 1)
+            return min(abs(max_val), abs(min_val)) / (2**31 - 1)
         else:
             raise ValueError(f"Unsupported data type: {drtDataType}. Valid types are 'int8' and 'int32'.")
 
     def get_zero_point(self, dataArray, scale) -> int:
-        min_val = min(dataArray)
+        min_val = np.amin(dataArray)
         return round(- min_val / scale)
 
     def quantitate(self, dataArray, drtDataType: str) -> np.int8 | np.int32:
         scale = self.get_scale(dataArray, drtDataType)
         zero_point = self.get_zero_point(dataArray, scale)
-        drt_data = np.around( (dataArray - min(dataArray)) / scale + zero_point )
+        drt_data = np.around( (dataArray - np.amin(dataArray)) / scale + zero_point )
         return drt_data.astype(np.int8)
     
     def quantitate_params(self):
         if self.input is not None:
             self.input = self.quantitate(self.input, 'int8')
         if self.weight is not None:
-            self.weight = self.quantitate(self.input, 'int8')
+            self.weight = self.quantitate(self.weight, 'int8')
         if self.bias is not None:
             self.bias = self.quantitate(self.bias, 'int32')
 
