@@ -9,7 +9,7 @@
 
 // 模型参数读取相关
 #define MAX_LINE_SIZE 100000
-#define CSV_FILE_PATH "./FCNNModelCreater/params.csv"
+#define CSV_FILE_PATH "./NNInference/quantized_params.csv"
 #define LABEL "fc1.bias"
 
 
@@ -24,24 +24,17 @@ int main(void)
     FILE *file = open_csv(CSV_FILE_PATH);
 
     // hidden_bias[]
-    float array[HIDDEN_SIZE];
+    int8_t array[HIDDEN_SIZE];
     char *label = "fc1.bias";
-    serch_lable_line(file, line, sizeof(line), label);
+    serch_label_line(file, line, sizeof(line), label);
     parse_dim(line, &Dim);
     get_bias_params(file, line, sizeof(line), array, Dim);
 
-    // 找 scale
-    float temp = 0;
-    float drt = 0;
-    for (int i = 0; i < INPUT_SIZE; i++)
+    for (int i = 0; i < HIDDEN_SIZE; i++)
     {
-        // temp = array[i];
-        // if (temp < drt)
-        // {
-        //     drt = temp;
-        // }
-        printf("%d ", image[i]);
+        printf("%d ", array[i]);
     }
+    
 
 
 

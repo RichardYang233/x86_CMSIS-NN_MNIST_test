@@ -21,17 +21,32 @@ layer_2 = NNLayer()
 
 SRC_PATH = './FCNNModelCreater/params.csv'
 DRT_PATH = './NNInference/quantized_params.csv'
-LABEL = 'fc1.weight'
-
 
 CSVHandle = CSVHandler(SRC_PATH, DRT_PATH)
-CSVHandle.set_label(LABEL)
 
+# fc1.weight
+CSVHandle.set_label('fc1.weight')
 layer_1.weight = CSVHandle.read_params()
 layer_1.quantitate_params()
 CSVHandle.output_quantized_params(layer_1.weight)
-print(layer_1.weight)
 
+# fc1.bias
+CSVHandle.set_label('fc1.bias')
+layer_1.bias = CSVHandle.read_params()
+layer_1.quantitate_params()
+CSVHandle.output_quantized_params(layer_1.bias)
+
+# fc2.weight
+CSVHandle.set_label('fc2.weight')
+layer_2.weight = CSVHandle.read_params()
+layer_2.quantitate_params()
+CSVHandle.output_quantized_params(layer_2.weight)
+
+# fc2.bias
+CSVHandle.set_label('fc2.bias')
+layer_2.bias = CSVHandle.read_params()
+layer_2.quantitate_params()
+CSVHandle.output_quantized_params(layer_2.bias)
 
 # copy_csv(SRC_PATH, DRT_PATH)
 # shape, data = read_params(DRT_PATH, 'fc1.weight')

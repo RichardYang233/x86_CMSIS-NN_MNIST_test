@@ -59,8 +59,12 @@ class CSVHandler:
         # 替换数据
         if target_index is not None:
             for i in range(quantized_data.shape[0]):
-                row = quantized_data[i, :].tolist()
-                data[target_index + 1 + i] = row # 插入新数据行
+                if quantized_data.ndim == 1:
+                    row = quantized_data
+                    data[target_index + 1] = row
+                else:   
+                    row = quantized_data[i, :].tolist()
+                    data[target_index + 1 + i] = row # 插入新数据行
 
             with open(self.file_path, mode='w', newline='') as f:
                 writer = csv.writer(f)
