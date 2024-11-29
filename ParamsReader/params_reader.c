@@ -160,7 +160,7 @@ void serch_label_line(FILE* file, char *line, int sizeofline, char *label)
     rewind(file);
     while (fgets(line, sizeofline, file))
     {
-        line[strcspn(line, "\n")] = 0; // 移除换行�?
+        line[strcspn(line, "\n")] = 0; // 去除换行符
         if (is_label(line, label) == true)
         {
             break;
@@ -180,7 +180,7 @@ void serch_label_line(FILE* file, char *line, int sizeofline, char *label)
 //     parse_dim(line, &rows, &cols);
 
 //     // float params_array[rows][cols];
-//     float **params_array = allocate_2d_array(rows, cols); // 动态分配二维数�?
+//     float **params_array = allocate_2d_array(rows, cols); // 鍔ㄦ€佸垎閰嶄簩缁存暟缁?
 //     read_params(file, line, sizeofline, params_array, rows, cols);
 //     free_2d_array(params_array, rows);
     

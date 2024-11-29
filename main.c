@@ -7,22 +7,22 @@
 #include "NNInference.h"
 
 
-// Ä£ĞÍ²ÎÊı¶ÁÈ¡Ïà¹Ø
+// æ¨¡å‹å‚æ•°è¯»å–ç›¸å…³
 #define MAX_LINE_SIZE 100000
 #define CSV_FILE_PATH "./NNInference/quantized_params.csv"
 
 
 int main(void) 
 {
-    // ±äÁ¿
+    // å˜é‡
     Dim_TypeDef Dim;
     char line[MAX_LINE_SIZE];
     char *label;
 
-    // ÎÄ¼ş
+    // æ–‡ä»¶
     FILE *file = open_csv(CSV_FILE_PATH);
 
-    /*----------------- ÌáÈ¡Êı¾İ ------------------*/
+    /*----------------- æå–æ•°æ® ------------------*/
 
     // input
 
@@ -72,13 +72,13 @@ int main(void)
     }
 
     
-    // ³õÊ¼»¯²ÎÊı
+    // åˆå§‹åŒ–å‚æ•°
     init_nn_params();
 
-    // Ö´ĞĞÍÆÀí
+    // æ‰§è¡Œæ¨ç†
     run_inference();
 
-    // Êä³ö·ÖÀà½á¹û
+    // è¾“å‡ºåˆ†ç±»ç»“æœ
     for (int i = 0; i < OUTPUT_SIZE; i++) {
         printf("Class %d score: %d\n", i, output[i]);
     }
