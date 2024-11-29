@@ -1,0 +1,38 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: gcc.exe 生成活动文件",
+            "command": "D:\\Professional\\mingw64\\bin\\gcc.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "D:\\Documents\\WorkSpace\\x86_CMSIS-NN_MNIST_test\\NNInference\\NNInference.c",
+                "D:\\Documents\\WorkSpace\\x86_CMSIS-NN_MNIST_test\\ParamsReader\\params_reader.c",
+                "-I", "D:\\Documents\\WorkSpace\\x86_CMSIS-NN_MNIST_test\\CMSIS-NN\\Include",
+                "-I", "D:\\Documents\\WorkSpace\\x86_CMSIS-NN_MNIST_test\\CMSIS-NN\\Include\\Internal",
+                "-I", "D:\\Documents\\WorkSpace\\x86_CMSIS-NN_MNIST_test\\ParamsReader",
+                "-I", "D:\\Documents\\WorkSpace\\x86_CMSIS-NN_MNIST_test\\NNInference",
+                "-I", "D:\\Documents\\WorkSpace\\x86_CMSIS-NN_MNIST_test",
+                "-L",
+                "D:\\Documents\\WorkSpace\\x86_CMSIS-NN_MNIST_test",
+                "-lcmsis-nn",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "调试器生成的任务。"
+        }
+    ],
+    "version": "2.0.0"
+}

@@ -8,7 +8,7 @@ from PIL import Image
 mnist_dataset = MNIST(root='./FCNNModelCreater/MNIST/data', train=True, download=False, transform=transforms.ToTensor())
 
 # 提取第一个样本 (5)
-image, label = mnist_dataset[0]
+image, label = mnist_dataset[2]
 
 
 print("Image shape:", image.shape)  # 图像为 (1, 28, 28)
@@ -21,5 +21,5 @@ print("Image Data:", flattened_str)
 
 
 
-# img = Image.fromarray(image_uint8)
-# img.save("mnist_image.png")
+img = Image.fromarray(image_uint8)
+img.save("mnist_image.png")

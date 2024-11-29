@@ -12,12 +12,12 @@ layer_1 = NNLayer()
 layer_2 = NNLayer()
 
 # # 生成图像量化数据
-# MNIST_dataset = MNIST(root='./FCNNModelCreater/MNIST/data', train=True, download=False, transform=transforms.ToTensor())
-# image, label = MNIST_dataset[0] 
-# layer_1.input = image.squeeze().numpy().flatten()  # layer_1.input
+MNIST_dataset = MNIST(root='./FCNNModelCreater/MNIST/data', train=True, download=False, transform=transforms.ToTensor())
+image, label = MNIST_dataset[2] 
+layer_1.input = image.squeeze().numpy().flatten()  # layer_1.input
 
-# layer_1.quantitate_params()
-# show(layer_1.input)
+layer_1.quantitate_params()
+show(layer_1.input)
 
 SRC_PATH = './FCNNModelCreater/params.csv'
 DRT_PATH = './NNInference/quantized_params.csv'

@@ -54,7 +54,30 @@ int parse_dim(const char *line, Dim_TypeDef *Dim)
 }
 
 //
-void get_bias_params(FILE *file, char *line, int sizeofline, int8_t array[], Dim_TypeDef Dim)
+void get_int8_params(FILE *file, char *line, int sizeofline, int8_t array[], Dim_TypeDef Dim)
+{
+    // printf("%d, %d\n", Dim.rows, Dim.cols); // test
+    for (int i = 0; i < Dim.rows; i++)
+    {
+        if (fgets(line, sizeofline, file) == NULL)
+        {
+            printf("Failed to read data for row %d.\n", i);
+            break;
+        }
+
+        char *token = strtok(line, ","); // 
+
+        for (int j = 0; j < Dim.cols && token != NULL; j++)
+        {
+            array[i*Dim.cols + j] = strtof(token, NULL); // 
+            // printf("%d: %f\n", i*Dim.cols+j+1, array[i*Dim.cols+j]); // test
+            token = strtok(NULL, ",");
+        }
+    }
+    return;
+}
+
+void get_int32_params(FILE *file, char *line, int sizeofline, int32_t array[], Dim_TypeDef Dim)
 {
     // printf("%d, %d\n", Dim.rows, Dim.cols); // test
     for (int i = 0; i < Dim.rows; i++)
