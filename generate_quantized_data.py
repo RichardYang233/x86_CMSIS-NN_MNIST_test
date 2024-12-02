@@ -1,6 +1,6 @@
 from Quantification.paramParser import *
 from Quantification.quantizer import *
-from DataReader.image_reader import *
+from FCNNModelCreater.image_reader import *
 
 
 # --- CSV --- #
@@ -26,8 +26,14 @@ def process(label, drt_type):
     parser.write_params(quantized_data)
     print(f"Successfully wirte {label} with type {drt_type} !")
 
+# - 量化图像数据 - #
 
-# - fc1.weight - #
+raw_data = get_image_data()
+quantized_data = quantizer.quantitate(raw_data, 'int8')
+str_data = ",".join(map(str, quantized_data))
+print(str_data)
+
+# - 逐层量化参数 - #
 
 process('fc1.weight', 'int8')
 
