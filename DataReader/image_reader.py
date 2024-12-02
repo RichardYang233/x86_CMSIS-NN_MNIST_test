@@ -13,3 +13,6 @@ def get_image_data():
 
     # layer_1.quantitate_params()
     # show(layer_1.input)
+
+image = get_image_data()
+print(image)
