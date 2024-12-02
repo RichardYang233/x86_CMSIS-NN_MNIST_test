@@ -25,13 +25,13 @@ int main(void)
     /*----------------- 提取数据 ------------------*/
 
     // input
-
+    // 在 NNInference.c 中定义
 
     // fc1.weight
     int8_t fc1_weight[INPUT_SIZE * HIDDEN_SIZE];
     label = "fc1.weight";
     serch_label_line(file, line, sizeof(line), label);
-    parse_dim(line, &Dim);
+    find_dim(line, &Dim);
     get_int8_params(file, line, sizeof(line), fc1_weight, Dim);
     for(int i = 0; i < INPUT_SIZE * HIDDEN_SIZE; i++)
     {
@@ -42,7 +42,7 @@ int main(void)
     int32_t fc1_bias[HIDDEN_SIZE];
     label = "fc1.bias";
     serch_label_line(file, line, sizeof(line), label);
-    parse_dim(line, &Dim);
+    find_dim(line, &Dim);
     get_int32_params(file, line, sizeof(line), fc1_bias, Dim);
     for(int i = 0; i < HIDDEN_SIZE; i++)
     {
@@ -53,7 +53,7 @@ int main(void)
     int8_t fc2_weight[HIDDEN_SIZE * OUTPUT_SIZE];
     label = "fc2.weight";
     serch_label_line(file, line, sizeof(line), label);
-    parse_dim(line, &Dim);
+    find_dim(line, &Dim);
     get_int8_params(file, line, sizeof(line), fc2_weight, Dim);
     for(int i = 0; i < HIDDEN_SIZE * OUTPUT_SIZE; i++)
     {   
@@ -64,7 +64,7 @@ int main(void)
     int32_t fc2_bias[OUTPUT_SIZE];
     label = "fc2.bias";
     serch_label_line(file, line, sizeof(line), label);
-    parse_dim(line, &Dim);
+    find_dim(line, &Dim);
     get_int32_params(file, line, sizeof(line), fc2_bias, Dim);
     for(int i = 0; i < OUTPUT_SIZE; i++)
     {

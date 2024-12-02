@@ -6,7 +6,7 @@
             "includePath": [
                 "${workspaceFolder}/CMSIS-NN/Include", 
 			    "${workspaceFolder}/CMSIS-NN/Include/Internal" ,
-			    "${workspaceFolder}/ParamsReader",
+			    "${workspaceFolder}/DataReader",
 			    "${workspaceFolder}/NNInference",
                 "${workspaceFolder}"
             ],

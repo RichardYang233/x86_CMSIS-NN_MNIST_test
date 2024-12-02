@@ -29,7 +29,7 @@ bool is_label(const char *line, char *label)
 }
 
 // 
-int parse_dim(const char *line, Dim_TypeDef *Dim)
+int find_dim(const char *line, Dim_TypeDef *Dim)
 {
     //  "torch.Size("
     const char *dim_start = strstr(line, "torch.Size([");
@@ -160,7 +160,7 @@ void serch_label_line(FILE* file, char *line, int sizeofline, char *label)
     rewind(file);
     while (fgets(line, sizeofline, file))
     {
-        line[strcspn(line, "\n")] = 0; // 去除换行符
+        line[strcspn(line, "\n")] = 0; // 去除换行�?
         if (is_label(line, label) == true)
         {
             break;

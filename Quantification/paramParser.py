@@ -3,23 +3,26 @@ import numpy as np
 import shutil
 
 
+def copy_csv(src_path, drt_path): 
+    shutil.copy(src_path, drt_path)
+    print(f"File copied from {src_path} to {drt_path}")
 
-class CSVHandler:
-    def __init__(self, src_path, drt_path):
-        self.src_path  = src_path
+
+class ParamParser():
+    def __init__(self, drt_path: str = None, label: str = None):
         self.file_path = drt_path
-        self.label = None
-        self.copy_csv()
-    
-    def copy_csv(self): 
-        shutil.copy(self.src_path, self.file_path)
-        print('copy successful !!!')
+        self.label = label
 
+    def set_parser(self, drt_path: str, label: str):
+        self.file_path = drt_path
+        self.label = label
+    
     def set_label(self, label: str):
         self.label = label
 
-        
-    def read_params(self):
+    def read_params(self, drt_path, label) -> np.array:
+        self.file_path = drt_path
+        self.label = label
         with open(self.file_path, mode='r') as file:
             reader = csv.reader(file)
             # 逐行检查
@@ -43,19 +46,16 @@ class CSVHandler:
                     return data # return shape
         raise ValueError(f"{self.label} not found in the CSV file.")
 
-
-    def output_quantized_params(self, quantized_data):
+    def write_params(self, quantized_data):
         with open(self.file_path, mode='r' , newline='') as file:
             reader = csv.reader(file)
             data = list(reader)
-
         # 查找目标行索引
         target_index = None
         for i, row in enumerate(data):
             if self.label in row:
                 target_index = i
                 break
-        
         # 替换数据
         if target_index is not None:
             for i in range(quantized_data.shape[0]):
@@ -72,18 +72,4 @@ class CSVHandler:
         else:
             print("没有找到目标行 ！！！")
 
-
-# file_path = "./FCNNModelCreater/params.csv"
-# label = "fc1.weight"
-
-# try:
-#     shape, data = parse_csv(file_path, label)
-#     print(f"Shape: {shape}")
-#     print(f"Data:\n{data}")
-# except ValueError as e:
-#     print(e)
-
-
-
-
-    
+     

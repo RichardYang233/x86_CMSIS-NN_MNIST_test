@@ -10,7 +10,7 @@ CFLAGS = -std=c99 -Wall -g
 
 INCLUDES = 	-I./CMSIS-NN/Include \
 			-I./CMSIS-NN/Include/Internal \
-			-I./ParamsReader \
+			-I./DataReader \
 			-I./NNInference \
 			-I.
 
@@ -21,7 +21,7 @@ LIBRARY = ./libcmsis-nn.a \
 # Source files
 
 SRCS = main.c \
-       ./ParamsReader/params_reader.c \
+       ./DataReader/params_reader.c \
 	   ./NNInference/NNInference.c
 
 # Object files
