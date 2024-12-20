@@ -20,9 +20,9 @@ class ParamParser():
     def set_label(self, label: str):
         self.label = label
 
-    def read_params(self, drt_path, label) -> np.array:
-        self.file_path = drt_path
-        self.label = label
+    def read_params(self) -> np.array:
+        # self.file_path = drt_path
+        # self.label = label
         with open(self.file_path, mode='r') as file:
             reader = csv.reader(file)
             # 逐行检查

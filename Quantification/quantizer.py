@@ -25,9 +25,9 @@ class Quantizer:
         min_val = np.amin(self.array)
         return round(- min_val / scale)
 
-    def quantitate(self, array, drt_type) -> np.int8 | np.int32:
-        self.array = array
-        self.drt_type = drt_type
+    def quantitate(self) -> np.int8 | np.int32:
+        # self.array = array
+        # self.drt_type = drt_type
         scale = self.get_scale()
         zero_point = self.get_zero_point()
         drt_data = np.around( (self.array - np.amin(self.array)) / scale + zero_point )
