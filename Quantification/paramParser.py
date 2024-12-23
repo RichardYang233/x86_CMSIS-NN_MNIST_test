@@ -1,6 +1,11 @@
 import csv
 import numpy as np
 import shutil
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from Quantification.quantizer import *
 
 
 def copy_csv(src_path, drt_path): 
@@ -72,4 +77,21 @@ class ParamParser():
         else:
             print("没有找到目标行 ！！！")
 
-     
+
+def output_quantized_params_2_csv(drt_path: str, label: str, drt_type: str):
+
+    def read_params(drt_path, label): 
+        parser = ParamParser()
+        parser.set_parser(drt_path, label)
+        raw_data = parser.read_params()
+        return raw_data
+
+    def write_params(quantized_data, label, drt_path):
+        parser = ParamParser()
+        parser.set_parser(drt_path, label)
+        parser.write_params(quantized_data)
+
+    raw_params =  read_params(drt_path, label)
+    quantized_data = quantize(raw_params, drt_type)
+    write_params(quantized_data, label, drt_path)
+    print(f"Successfully wirte {label} with type {drt_type} !")
