@@ -24,6 +24,7 @@ SRCS = main.c \
        ./DataReader/params_reader.c \
 	   ./NNInference/NNInference.c
 
+
 # Object files
 
 OBJS = $(SRCS:.c=.o)
