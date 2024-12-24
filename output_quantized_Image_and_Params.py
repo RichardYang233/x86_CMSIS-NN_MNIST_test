@@ -1,6 +1,6 @@
-from Quantification.paramParser import *
+from Quantification.param_parser import *
 from Quantification.quantizer import *
-from FCNNModelCreater.test_dataset_reader import *
+from Quantification.output_quantized_data import *
 
 
 # - 复制 原始数据 到 新文件 - #
@@ -8,7 +8,7 @@ from FCNNModelCreater.test_dataset_reader import *
 SRC_PATH = './FCNNModelCreater/params.csv'
 DRT_PATH = './NNInference/quantized_params.csv'
 
-copy_csv(SRC_PATH, DRT_PATH)
+copy_csv_file(SRC_PATH, DRT_PATH)
 
 # - 量化训练集数据 - #
 
