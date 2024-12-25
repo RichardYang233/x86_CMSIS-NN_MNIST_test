@@ -22,6 +22,7 @@ LIBRARY = ./libcmsis-nn.a \
 
 SRCS = main.c \
        ./DataReader/params_reader.c \
+	   ./DataReader/test_dataset_reader.c \
 	   ./NNInference/NNInference.c
 
 
