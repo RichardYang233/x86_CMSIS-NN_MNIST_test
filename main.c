@@ -5,11 +5,13 @@
 #include "main.h"
 #include "params_reader.h"
 #include "NNInference.h"
+#include "test_dataset_reader.h"
 
 
 // 模型参数读取相关
 #define MAX_LINE_SIZE 100000
 #define CSV_FILE_PATH "./NNInference/quantized_params.csv"
+#define TEST_DATASET_PATH "./NNInference/quantized_test_dataset.csv"
 
 
 int main(void) 
@@ -21,11 +23,9 @@ int main(void)
 
     // 文件
     FILE *file = open_csv(CSV_FILE_PATH);
+    FILE *file_image = open_csv_image(TEST_DATASET_PATH);
 
     /*----------------- 提取数据 ------------------*/
-
-    // input
-    // 在 NNInference.c 中定义
 
     // fc1.weight
     int8_t fc1_weight[INPUT_SIZE * HIDDEN_SIZE];
@@ -71,22 +71,69 @@ int main(void)
         output_bias[i] = fc2_bias[i];
     }
 
-    
-    // 初始化参数
-    init_nn_params();
+    // input
+    int8_t data[MAX_COLUMNS];
+    char line_image[MAX_LINE_SIZE];
 
-    // 执行推理
-    run_inference();
+    int right_count = 0;
+    int fault_count = 0;
+    while (fgets(line_image, sizeof(line_image), file_image))
+    {
+        get_single_image_data(line_image, data);
+        int label = get_image_label(data);
 
-    // 输出分类结果
-    for (int i = 0; i < OUTPUT_SIZE; i++) {
-        printf("Class %d score: %d\n", i, output[i]);
+        for (int i = 1; i <= 28*28; i ++)
+        {
+            input[i] = data[i];
+        }
+
+        
+
+        // 初始化参数
+        init_nn_params();
+
+        // 执行推理
+        run_inference();
+
+        // // 获取推理结果
+        int temp = -127;
+        int result;
+        for(int i = 0; i < 10; i ++)
+        {
+            if (output[i] > temp) 
+            {
+                temp = output[i];
+                result = i;
+            }
+        }
+
+
+
+        // // 结果判断
+        if (result == label)
+        {
+            right_count++;
+        }
+        else
+        {
+            fault_count++;
+        }
+
     }
 
+    printf("right_count: %d\n", right_count);
+    printf("fault_count: %d\n", fault_count);
+    printf("accuracy: %f\n", (float)right_count / (right_count + fault_count));
+
+    // 输出分类结果
+    // for (int i = 0; i < OUTPUT_SIZE; i++) {
+    //     printf("Class %d score: %d\n", i, output[i]);
+    // }
 
     printf("Run successfully !!!\n\n");
 
     fclose(file);
+    fclose(file_image);
     return 0;
 }
 

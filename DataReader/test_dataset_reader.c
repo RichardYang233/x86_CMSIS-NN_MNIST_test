@@ -8,7 +8,6 @@
 
 #define TEST_DATASET_PATH "./NNInference/quantized_test_dataset.csv"
 #define MAX_LINE_SIZE 100000
-#define MAX_COLUMNS (28*28 + 1) 
 
 
 
