@@ -8,11 +8,6 @@
 #include "params_reader.h"
 
 
-FILE *open_csv(const char *fliePath)
-{
-    FILE *file = fopen(fliePath, "r");
-    return file;
-}
 
 //
 bool is_label(const char *line, char *label)
@@ -160,7 +155,7 @@ void serch_label_line(FILE* file, char *line, int sizeofline, char *label)
     rewind(file);
     while (fgets(line, sizeofline, file))
     {
-        line[strcspn(line, "\n")] = 0; // 去除换行�?
+        line[strcspn(line, "\n")] = 0; // 去除换行�?
         if (is_label(line, label) == true)
         {
             break;

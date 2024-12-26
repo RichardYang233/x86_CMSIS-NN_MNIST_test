@@ -6,7 +6,6 @@
 
 int8_t get_image_label(int8_t image_data[]);
 void get_single_image_data(char line[] ,int8_t image_data[]);
-FILE *open_csv_image(const char *fliePath);
 
 
 

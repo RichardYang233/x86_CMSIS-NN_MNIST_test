@@ -11,17 +11,6 @@
 
 
 
-FILE *open_csv_image(const char *fliePath)
-{
-    FILE *file = fopen(fliePath, "r");
-    if (!file)
-    {
-        perror("Failed to open file");
-        return NULL;
-    }
-    return file;
-}
-
 void get_single_image_data(char line[] ,int8_t image_data[])
 {
     line[strcspn(line, "\n")] = '\0';

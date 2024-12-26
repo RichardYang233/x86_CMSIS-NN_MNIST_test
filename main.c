@@ -6,6 +6,7 @@
 #include "params_reader.h"
 #include "NNInference.h"
 #include "test_dataset_reader.h"
+#include "file_utils.h"
 
 
 // 模型参数读取相关
@@ -23,7 +24,7 @@ int main(void)
 
     // 文件
     FILE *file = open_csv(CSV_FILE_PATH);
-    FILE *file_image = open_csv_image(TEST_DATASET_PATH);
+    FILE *file_image = open_csv(TEST_DATASET_PATH);
 
     /*----------------- 提取数据 ------------------*/
 

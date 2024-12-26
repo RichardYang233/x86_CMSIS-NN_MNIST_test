@@ -12,7 +12,7 @@ typedef struct {
 } Dim_TypeDef;
 
 
-FILE *open_csv(const char *fliePath);
+
 int find_dim(const char *line, Dim_TypeDef *Dim);
 bool is_label(const char *line, char *label);
 void get_int8_params(FILE *file, char *line, int sizeOfline, int8_t array[], Dim_TypeDef Dim);
