@@ -7,11 +7,12 @@
 #include "NNInference.h"
 #include "test_dataset_reader.h"
 #include "file_utils.h"
+#include "result_evaluate.h"
 
 
 // 模型参数读取相关
 #define MAX_LINE_SIZE 100000
-#define CSV_FILE_PATH "./NNInference/quantized_params.csv"
+#define PARAMS_PATH "./NNInference/quantized_params.csv"
 #define TEST_DATASET_PATH "./NNInference/quantized_test_dataset.csv"
 
 
@@ -23,7 +24,7 @@ int main(void)
     char *label;
 
     // 文件
-    FILE *file = open_csv(CSV_FILE_PATH);
+    FILE *file = open_csv(PARAMS_PATH);
     FILE *file_image = open_csv(TEST_DATASET_PATH);
 
     /*----------------- 提取数据 ------------------*/
@@ -88,29 +89,14 @@ int main(void)
             input[i] = data[i];
         }
 
-        
-
         // 初始化参数
         init_nn_params();
-
         // 执行推理
         run_inference();
 
-        // // 获取推理结果
-        int temp = -127;
-        int result;
-        for(int i = 0; i < 10; i ++)
-        {
-            if (output[i] > temp) 
-            {
-                temp = output[i];
-                result = i;
-            }
-        }
-
-
-
-        // // 结果判断
+        // 获取推理结果
+        int result = get_result(output);
+        // 结果判断
         if (result == label)
         {
             right_count++;

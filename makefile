@@ -24,6 +24,7 @@ SRCS = main.c \
        ./DataReader/params_reader.c \
 	   ./DataReader/test_dataset_reader.c \
 	   ./DataReader/file_utils.c \
+	   ./DataReader/result_evaluate.c \
 	   ./NNInference/NNInference.c
 
 

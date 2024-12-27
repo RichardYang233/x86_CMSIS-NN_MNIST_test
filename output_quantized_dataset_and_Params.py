@@ -3,13 +3,6 @@ from Quantification.quantizer import *
 from Quantification.output_quantized_data import *
 
 
-# - 复制 原始数据 到 新文件 - #
-
-SRC_PATH = './FCNNModelCreater/params.csv'
-DRT_PATH = './NNInference/quantized_params.csv'
-
-copy_csv_file(SRC_PATH, DRT_PATH)
-
 # - 量化训练集数据 - #
 
 TEST_DATESET_FILE = './NNInference/quantized_test_dataset.csv'
@@ -17,6 +10,11 @@ TEST_DATESET_FILE = './NNInference/quantized_test_dataset.csv'
 output_quantized_dataset_2_csv(TEST_DATESET_FILE, 'int8')
 
 # - 逐层量化参数 - #
+
+SRC_PATH = './FCNNModelCreater/.net_params.csv'
+DRT_PATH = './NNInference/quantized_params.csv'
+
+copy_csv_file(SRC_PATH, DRT_PATH)
 
 output_quantized_params_2_csv(DRT_PATH, 'fc1.weight', 'int8')
 

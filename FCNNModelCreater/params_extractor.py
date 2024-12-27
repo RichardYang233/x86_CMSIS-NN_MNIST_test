@@ -2,11 +2,11 @@ import torch
 import csv
 
 
-PARAMS_FILE = './FCNNModelCreater/.net_params.plk'
-OUTPUT_FILE = './FCNNModelCreater/params.csv'
+INPUT_FILE  = './FCNNModelCreater/.net_params.plk'
+OUTPUT_FILE = './FCNNModelCreater/.net_params.csv'
 
 
-model_dict = torch.load(PARAMS_FILE, weights_only=True)
+model_dict = torch.load(INPUT_FILE, weights_only=True)
 
 with open(OUTPUT_FILE, 'w', newline='') as csvfile:
     writer = csv.writer(csvfile)
@@ -22,4 +22,4 @@ with open(OUTPUT_FILE, 'w', newline='') as csvfile:
         else:
             raise ValueError(f"Unexpected parameter dimensions: {params.ndim}")
         
-print(f'Successfully extract params from {PARAMS_FILE} !!!')        
+print(f'Successfully extract params from {INPUT_FILE} !!!')        

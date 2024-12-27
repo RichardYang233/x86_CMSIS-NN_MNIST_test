@@ -6,9 +6,6 @@
 #include "test_dataset_reader.h"
 
 
-#define TEST_DATASET_PATH "./NNInference/quantized_test_dataset.csv"
-#define MAX_LINE_SIZE 100000
-
 
 
 void get_single_image_data(char line[] ,int8_t image_data[])

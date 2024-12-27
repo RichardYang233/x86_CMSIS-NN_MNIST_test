@@ -1,6 +1,11 @@
 import numpy as np
 
 
+'''
+仅支持 int32, int8 量化
+
+'''
+
 def get_scale(array, drt_type) -> float:
 
     max_val = np.amax(array) 
