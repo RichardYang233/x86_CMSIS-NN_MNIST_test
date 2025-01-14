@@ -1,41 +1,23 @@
 import torch
-from torch import nn
-from torch import optim
-from torch.utils.data import DataLoader
-import torch.nn.functional as F
+import torch.nn as nn
+import matplotlib.pyplot as plt
 
 from torchvision.datasets import MNIST
+from torch.utils.data import DataLoader
 from torchvision import transforms
 
-import matplotlib.pyplot as plt
+from model import Net
 
 
 EPOCH = 10      # 轮次
 BATCH_SIZE = 64 # 轮次大小
 
 
-mnist_train = MNIST('./FCNNModelCreater/MNIST/data', train=True, download=True, transform=transforms.ToTensor())
-mnist_test = MNIST('./FCNNModelCreater/MNIST/data', train=False, download=True, transform=transforms.ToTensor())
+mnist_train = MNIST('./dataset_and_model/MNIST/data', train=True, download=True, transform=transforms.ToTensor())
+mnist_test = MNIST('./dataset_and_model/MNIST/data', train=False, download=True, transform=transforms.ToTensor())
 loader_train = DataLoader(mnist_train, batch_size=BATCH_SIZE, shuffle=True)
 loader_test = DataLoader(mnist_test, batch_size=BATCH_SIZE, shuffle=True)
 
-
-class Net(nn.Module):
-    def __init__(self):
-        super().__init__()
-
-        self.fl = nn.Flatten()  # 扁平化 tensor
-
-        self.fc1 = nn.Linear(28*28, 512)
-        self.fc2 = nn.Linear(512, 10)
-
-    def forward(self, x):
-        x = self.fl(x)  # 扁平化
-
-        x = self.fc1(x)
-        x = F.relu(x)
-        x = self.fc2(x)
-        return x
 
 net = Net()
 print(net)
@@ -69,8 +51,8 @@ for epoch in range(EPOCH):
     losslist.append(lossall)
     acclist.append(acc.numpy()/len(mnist_test))
 
-torch.save(net, '.net.plk')                      # 保存网络
-torch.save(net.state_dict(), '.net_params.plk')  # 保存参数
+torch.save(net, './dataset_and_model/.net.plk')                      # 保存网络
+torch.save(net.state_dict(), './dataset_and_model/.net_params.plk')  # 保存参数
 
 
 
@@ -80,3 +62,4 @@ plt.plot(list(range(EPOCH)), losslist, c='r')
 plt.subplot(1,2,2)
 plt.plot(list(range(EPOCH)), acclist, c='b')
 plt.show()
+

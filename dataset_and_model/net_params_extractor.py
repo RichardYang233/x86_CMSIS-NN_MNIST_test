@@ -2,8 +2,8 @@ import torch
 import csv
 
 
-INPUT_FILE  = './FCNNModelCreater/.net_params.plk'
-OUTPUT_FILE = './FCNNModelCreater/.net_params.csv'
+INPUT_FILE  = './dataset_and_model/.net_params.plk'
+OUTPUT_FILE = './dataset_and_model/.net_params.csv'
 
 
 model_dict = torch.load(INPUT_FILE, weights_only=True)
