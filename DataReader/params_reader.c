@@ -9,7 +9,7 @@
 
 
 
-//
+// 
 bool is_label(const char *line, char *label)
 {
     const char *label_start = strstr(line, label);
@@ -95,22 +95,6 @@ void get_int32_params(FILE *file, char *line, int sizeofline, int32_t array[], D
     return;
 }
 
-// void copy(float **array, int8_t hidden_weights[HIDDEN_SIZE][INPUT_SIZE])
-// {
-//     float scale = 127.0f;
-//     for (int i = 0; i < HIDDEN_SIZE; i++) 
-//     {
-//         for (int j = 0; j < INPUT_SIZE; j++) 
-//         {
-//             //  float  int8_t
-//             float value = array[i][j];
-//             if (value > 1.0f) value = 1.0f; //
-//             if (value < -1.0f) value = -1.0f;
-//             hidden_weights[i][j] = (int8_t)(value * scale);
-//         }
-//     }
-// }
-
 // 
 float **allocate_2d_array(int rows, int cols) 
 {
@@ -162,21 +146,3 @@ void serch_label_line(FILE* file, char *line, int sizeofline, char *label)
         }
     }
 }
-
-
-
-// void serch_label_and_read_params(FILE *file, char *line, int sizeofline)
-// {
-//     int rows = 0;
-//     int cols = 0;
-//     // int current_line = 0;
-
-//     serch_label_line(file, line, sizeofline);
-//     parse_dim(line, &rows, &cols);
-
-//     // float params_array[rows][cols];
-//     float **params_array = allocate_2d_array(rows, cols); // 鍔ㄦ€佸垎閰嶄簩缁存暟缁?
-//     read_params(file, line, sizeofline, params_array, rows, cols);
-//     free_2d_array(params_array, rows);
-    
-// }

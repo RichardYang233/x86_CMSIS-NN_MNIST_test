@@ -12,8 +12,8 @@
 
 // 模型参数读取相关
 #define MAX_LINE_SIZE 100000
-#define PARAMS_PATH "./NNInference/quantized_params.csv"
-#define TEST_DATASET_PATH "./NNInference/quantized_test_dataset.csv"
+#define PARAMS_PATH "./data/q_params.csv"
+#define TEST_DATASET_PATH "./data/q_dataset.csv"
 
 
 int main(void) 
@@ -31,7 +31,7 @@ int main(void)
 
     // fc1.weight
     int8_t fc1_weight[INPUT_SIZE * HIDDEN_SIZE];
-    label = "fc1.weight";
+    label = "hidden_layer.weight";
     serch_label_line(file, line, sizeof(line), label);
     find_dim(line, &Dim);
     get_int8_params(file, line, sizeof(line), fc1_weight, Dim);
@@ -42,7 +42,7 @@ int main(void)
 
     // fc1.bias
     int32_t fc1_bias[HIDDEN_SIZE];
-    label = "fc1.bias";
+    label = "hidden_layer.bias";
     serch_label_line(file, line, sizeof(line), label);
     find_dim(line, &Dim);
     get_int32_params(file, line, sizeof(line), fc1_bias, Dim);
@@ -53,7 +53,7 @@ int main(void)
 
     // fc2.weight
     int8_t fc2_weight[HIDDEN_SIZE * OUTPUT_SIZE];
-    label = "fc2.weight";
+    label = "output_layer.weight";
     serch_label_line(file, line, sizeof(line), label);
     find_dim(line, &Dim);
     get_int8_params(file, line, sizeof(line), fc2_weight, Dim);
@@ -64,7 +64,7 @@ int main(void)
 
     // fc2.bias
     int32_t fc2_bias[OUTPUT_SIZE];
-    label = "fc2.bias";
+    label = "output_layer.bias";
     serch_label_line(file, line, sizeof(line), label);
     find_dim(line, &Dim);
     get_int32_params(file, line, sizeof(line), fc2_bias, Dim);
