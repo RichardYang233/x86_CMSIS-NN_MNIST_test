@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "testset_image_array.h": "c",
+        "hidden_layer_bias.h": "c",
+        "hidden_layer_weight.h": "c",
+        "param.h": "c",
+        "config.h": "c",
+        "cmsis_nn_helper.h": "c",
+        "arm_nnfunctions.h": "c",
+        "stdio.h": "c"
+    }
+}
