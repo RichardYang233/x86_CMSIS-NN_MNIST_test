@@ -102,7 +102,7 @@ int main(void)
         int result = 0;
         for (int i = 0; i < OUTPUT_SIZE; i++)
         {   
-            if (temp <= fc2_output[i])
+            if (temp < fc2_output[i])
             {
                 temp = fc2_output[i];
                 result = i;
@@ -116,7 +116,7 @@ int main(void)
         }
     }
 
-    printf("%d\n%d\n", correct, total);
+    printf("\nCMSIS-NN Accuracy: %.2f%%\n", (float)correct / (float)total * 100);
 
     return 0;
 }
