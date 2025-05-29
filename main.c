@@ -21,12 +21,12 @@ int main(void)
     int correct = 0;
     int cnt;
 
-    for(cnt = 0; cnt < 10000; cnt++)
+    for(cnt = 0; cnt < DATASET_CNT; cnt++)
     {
-
         /* -------------- */
         /*  hidden_layer  */ 
         /* -------------- */
+
         FC_set_context(&ctx);
         FC_set_dims(INPUT_SIZE, HIDDEN_SIZE);
         FC_set_fc_params(&fc_params, 0, -128, 127);
@@ -50,17 +50,16 @@ int main(void)
             &output_dims,
             fc1_output
         );
-
-        // 激活函数（ReLU）
-        for (int i = 0; i < HIDDEN_SIZE; i++) 
-        {
-            fc1_output[i] = fc1_output[i] < 0 ? 0 : fc1_output[i];
+        if (status != ARM_CMSIS_NN_SUCCESS) {
+            printf("Error: Fully connected layer computation failed.\n");
         }
-
+        // 激活函数（ReLU）
+        arm_relu_q7(fc1_output, sizeof(fc1_output)/sizeof(fc1_output[0]) );
 
         /* -------------- */
         /*  output_layer  */ 
         /* -------------- */
+
         FC_set_context(&ctx);
         FC_set_dims(HIDDEN_SIZE, OUTPUT_SIZE);
         FC_set_fc_params(&fc_params, 79, -128, 127);
@@ -88,18 +87,19 @@ int main(void)
             &output_dims,
             fc2_output
         );
-
-        // 激活函数（ReLU）
-        for (int i = 0; i < OUTPUT_SIZE; i++) 
-        {
-            fc2_output[i] = fc2_output[i] < 0 ? 0 : fc2_output[i];
+        if (status != ARM_CMSIS_NN_SUCCESS) {
+            printf("Error: Fully connected layer computation failed.\n");
         }
+        // 激活函数（ReLU）
+        arm_relu_q7(fc2_output, sizeof(fc2_output)/sizeof(fc2_output[0]));
 
         /* -------------- */
         /*     Argmax     */ 
         /* -------------- */
+
         int temp = 0;
         int result = 0;
+        
         for (int i = 0; i < OUTPUT_SIZE; i++)
         {   
             if (temp < fc2_output[i])
@@ -108,7 +108,8 @@ int main(void)
                 result = i;
             }
         }
-
+        
+        // 结果统计
         total++;
         if (result == testset_label_array[cnt])
         {

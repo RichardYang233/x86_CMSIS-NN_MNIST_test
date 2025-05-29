@@ -7,6 +7,9 @@
 #include "param.h"
 
 
+/**
+ * @brief 设置全连接层的 上下文信息
+ */
 void FC_set_context(cmsis_nn_context *ctx)
 {
     ctx->buf = NULL;
@@ -14,7 +17,7 @@ void FC_set_context(cmsis_nn_context *ctx)
 }
 
 /**
- * @brief 设置当前层 维度信息
+ * @brief 设置全连接层的 维度信息
  * @param input_dim 该层输入维度
  * @param output_dim 该层输出维度
  */
@@ -43,7 +46,7 @@ void FC_set_dims(int32_t input_dim, int32_t output_dim)
 }
 
 /**
- * @brief 设置当前层 偏移 和 数据范围 信息
+ * @brief 设置全连接层的 偏移 和 数据范围 信息
  * @param offset 输出偏移
  * @param min 最小值
  * @param max 最大值
@@ -57,10 +60,16 @@ void FC_set_fc_params(cmsis_nn_fc_params *fc_params, int32_t offset, int32_t min
     fc_params->activation.max = max;   
 }
 
+
+/**
+ * @brief 设置全连接层的 反量化参数
+ */
 void FC_set_quant_params(cmsis_nn_per_tensor_quant_params *quant_params, int32_t multiplier, int32_t shift)
 {
     quant_params->multiplier = multiplier;
     quant_params->shift = shift;
 }
+
+
 
 
