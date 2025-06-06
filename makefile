@@ -17,6 +17,7 @@ LIBRARY = ./libcmsis-nn.a					\
 INCLUDES = 	-I./CMSIS-NN/Include 			\
 			-I./CMSIS-NN/Include/Internal 	\
 			-I./model						\
+			-I./model/FCNet					\
 			-I./dataset						\
 			-I./utils						\
 			-I.
@@ -53,7 +54,8 @@ $(TARGET): $(LIBRARY) $(OBJS)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean: 
-	@del /s /q $(TARGET) *.o > nul
+	@del /s /q $(TARGET) *.o > nul  
+
 
 
 

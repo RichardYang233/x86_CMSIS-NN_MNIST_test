@@ -10,10 +10,10 @@
 /**
  * @brief 设置全连接层的 上下文信息
  */
-void FC_set_context(cmsis_nn_context *ctx)
+void fc_set_context(fc_model_handle *fc_model)
 {
-    ctx->buf = NULL;
-    ctx->size = 0;
+    fc_model->ctx.buf = NULL;
+    fc_model->ctx.size = 0;
 }
 
 /**
@@ -21,28 +21,28 @@ void FC_set_context(cmsis_nn_context *ctx)
  * @param input_dim 该层输入维度
  * @param output_dim 该层输出维度
  */
-void FC_set_dims(int32_t input_dim, int32_t output_dim)
+void fc_set_dims(fc_model_handle *fc_model, int32_t input_dim, int32_t output_dim)
 {
     // 输入维度
-    input_dims.n = 1;
-    input_dims.h = 1;
-    input_dims.w = 1;
-    input_dims.c = input_dim;
+    fc_model->input_dims.n = 1;
+    fc_model->input_dims.h = 1;
+    fc_model->input_dims.w = 1;
+    fc_model->input_dims.c = input_dim;
     // 权重维度
-    weight_dims.n = input_dim;
-    weight_dims.h = 1;
-    weight_dims.w = 1;
-    weight_dims.c = output_dim;
+    fc_model->weight_dims.n = input_dim;
+    fc_model->weight_dims.h = 1;
+    fc_model->weight_dims.w = 1;
+    fc_model->weight_dims.c = output_dim;
     // 偏置维度
-    bias_dims.n = 1;
-    bias_dims.h = 1;
-    bias_dims.w = 1;
-    bias_dims.c = output_dim;
+    fc_model->bias_dims.n = 1;
+    fc_model->bias_dims.h = 1;
+    fc_model->bias_dims.w = 1;
+    fc_model->bias_dims.c = output_dim;
     // 输出维度
-    output_dims.n = 1;
-    output_dims.h = 1;
-    output_dims.w = 1;
-    output_dims.c = output_dim; 
+    fc_model->output_dims.n = 1;
+    fc_model->output_dims.h = 1;
+    fc_model->output_dims.w = 1;
+    fc_model->output_dims.c = output_dim; 
 }
 
 /**
@@ -51,24 +51,26 @@ void FC_set_dims(int32_t input_dim, int32_t output_dim)
  * @param min 最小值
  * @param max 最大值
  */
-void FC_set_fc_params(cmsis_nn_fc_params *fc_params, int32_t offset, int32_t min, int32_t max)
+void fc_set_fc_params(fc_model_handle *fc_model, int32_t offset, int32_t min, int32_t max)
 {
-    fc_params->input_offset = 0;       
-    fc_params->filter_offset = 0;      
-    fc_params->output_offset = offset;      
-    fc_params->activation.min = min;     
-    fc_params->activation.max = max;   
+    fc_model->fc_params.input_offset = 0;       
+    fc_model->fc_params.filter_offset = 0;      
+    fc_model->fc_params.output_offset = offset;      
+    fc_model->fc_params.activation.min = min;     
+    fc_model->fc_params.activation.max = max;   
 }
 
 
 /**
  * @brief 设置全连接层的 反量化参数
  */
-void FC_set_quant_params(cmsis_nn_per_tensor_quant_params *quant_params, int32_t multiplier, int32_t shift)
+void fc_set_quant_params(fc_model_handle *fc_model, int32_t multiplier, int32_t shift)
 {
-    quant_params->multiplier = multiplier;
-    quant_params->shift = shift;
+    fc_model->quant_params.multiplier = multiplier;
+    fc_model->quant_params.shift = shift;
 }
+
+
 
 
 

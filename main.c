@@ -17,37 +17,46 @@
 
 int main(void)
 {   
+    /* 统计信息 */ 
     int total = 0;
     int correct = 0;
     int cnt;
+    
+    /* 层定义 */ 
+    fc_model_handle fc_hidden_layer;
+    fc_set_context(&fc_hidden_layer);
+    fc_set_dims(&fc_hidden_layer, INPUT_SIZE, HIDDEN_SIZE);
+    fc_set_fc_params(&fc_hidden_layer, 0, -128, 127);
+    fc_set_quant_params(&fc_hidden_layer, 1468934400, -11);
 
+    fc_model_handle fc_output_layer;
+    fc_set_context(&fc_output_layer);
+    fc_set_dims(&fc_output_layer, HIDDEN_SIZE, OUTPUT_SIZE);
+    fc_set_fc_params(&fc_output_layer, 79, -128, 127);
+    fc_set_quant_params(&fc_output_layer, 1134667560, -10);
+
+    /* 推理 */
     for(cnt = 0; cnt < DATASET_CNT; cnt++)
     {
         /* -------------- */
         /*  hidden_layer  */ 
         /* -------------- */
-
-        FC_set_context(&ctx);
-        FC_set_dims(INPUT_SIZE, HIDDEN_SIZE);
-        FC_set_fc_params(&fc_params, 0, -128, 127);
-        FC_set_quant_params(&quant_params, 1468934400, -11);
-
         int8_t *input = testset_image_array[cnt];
         int8_t *weight = hidden_layer_weight;
         int32_t *bias = hidden_layer_bias;
         int8_t fc1_output[HIDDEN_SIZE];
 
         arm_cmsis_nn_status status = arm_fully_connected_s8(
-            &ctx,
-            &fc_params,
-            &quant_params,
-            &input_dims,
+            &fc_hidden_layer.ctx,
+            &fc_hidden_layer.fc_params,
+            &fc_hidden_layer.quant_params,
+            &fc_hidden_layer.input_dims,
             input,
-            &weight_dims,
+            &fc_hidden_layer.weight_dims,
             weight,
-            &bias_dims,
+            &fc_hidden_layer.bias_dims,
             bias,
-            &output_dims,
+            &fc_hidden_layer.output_dims,
             fc1_output
         );
         if (status != ARM_CMSIS_NN_SUCCESS) {
@@ -59,32 +68,22 @@ int main(void)
         /* -------------- */
         /*  output_layer  */ 
         /* -------------- */
-
-        FC_set_context(&ctx);
-        FC_set_dims(HIDDEN_SIZE, OUTPUT_SIZE);
-        FC_set_fc_params(&fc_params, 79, -128, 127);
-        FC_set_quant_params(&quant_params, 1134667560, -10);
-
         input = fc1_output;
         weight = output_layer_weight;
         bias = output_layer_bias;
         int8_t fc2_output[10];
 
         status = arm_fully_connected_s8(
-            &ctx,
-            &fc_params,
-            &quant_params,
-
-            &input_dims,
+            &fc_output_layer.ctx,
+            &fc_output_layer.fc_params,
+            &fc_output_layer.quant_params,
+            &fc_output_layer.input_dims,
             input,
-
-            &weight_dims,
+            &fc_output_layer.weight_dims,
             weight,
-
-            &bias_dims,
+            &fc_output_layer.bias_dims,
             bias,
-            
-            &output_dims,
+            &fc_output_layer.output_dims,
             fc2_output
         );
         if (status != ARM_CMSIS_NN_SUCCESS) {
@@ -96,7 +95,6 @@ int main(void)
         /* -------------- */
         /*     Argmax     */ 
         /* -------------- */
-
         int temp = 0;
         int result = 0;
         
