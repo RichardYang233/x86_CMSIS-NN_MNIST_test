@@ -25,7 +25,8 @@ INCLUDES = 	-I./CMSIS-NN/Include 			\
 # source
 
 SRCS = 	./main.c								\
-		./utils/cmsis_nn_helper.c
+		./utils/cmsis_nn_helper.c				\
+		./utils/tensor_utils.c
 
 # 
 
