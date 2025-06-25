@@ -7,6 +7,10 @@
 #include "param.h"
 
 
+// ----------------------------------------------------------------------
+// 全连接层
+// ----------------------------------------------------------------------
+
 /**
  * @brief 设置全连接层的 上下文信息
  */
@@ -68,6 +72,26 @@ void fc_set_quant_params(fc_model_handle *fc_model, int32_t multiplier, int32_t 
 {
     fc_model->quant_params.multiplier = multiplier;
     fc_model->quant_params.shift = shift;
+}
+
+
+cmsis_nn_conv_params conv_set_params_s8(int32_t input_offset, int32_t output_offset, int32_t stride, int32_t padding)
+{
+    cmsis_nn_conv_params conv_params;
+
+    conv_params.activation.max = INT8_MAX;
+    conv_params.activation.min = INT8_MIN;
+    conv_params.input_offset = input_offset;
+    conv_params.input_offset = output_offset;
+    conv_params.stride.w = stride;
+    conv_params.stride.h = stride;
+    conv_params.padding.w = padding;
+    conv_params.padding.h = padding;
+    // NOTE: dilation 默认值为 1，暂不清楚具体用法
+    conv_params.dilation.w = 1; 
+    conv_params.dilation.h = 1;
+
+    return conv_params;
 }
 
 
