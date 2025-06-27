@@ -2,23 +2,29 @@
 
 ### 简介
 
-本仓库用于将量化参数通过 CMSIS-NN库，实现 C/C++ 部署。以检验 CMSIS-NN量化模型 与 torch量化模型 是否对齐
+本仓库用于将量化参数通过 CMSIS-NN库，实现 C/C++ 部署。以检验 CMSIS-NN 量化模型 与 torch量化模型 是否对齐
 
-量化参数获取： [NNQuantParamExtractor ]()仓库
+### 依赖
 
-### 文件构成
++ C/C++
++ CMSIS-NN Libarary
++ makefile
++ [NNQuantParamExtractor ]()仓库
 
-| 文件夹     | 描述           | 备注 |
-| ---------- | -------------- | ---- |
-| `CMSIS_NN` | CMSIS-NN 库    |      |
-| `dataset`  | mnist 数据集   |      |
-| `model`    | 模型信息和参数 |      |
-| `utils`    |                |      |
+### 目录结构
 
-`main.c`：
++ [`CMSIS_NN`]()：CMSIS-NN Libarary，包含静态链接库
++ [`dataset`]()：储存 MNIST 数据
++ [`model`]()：储存模型参数
++ [`utils`]()
+  + `cmsis_nn_helper`：对 CMSIS-NN Libarary 功能包装
+  + `tensor_utils`：tensor 操作工具
 
-`testset_2_array.py`：用于将测试集数据转为 C数组
++ `testset_2_array.py`：用于将测试集数据转为 C数组
 
+### 如何使用
 
+```makefile
+make
+```
 
----
